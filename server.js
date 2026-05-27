@@ -1,11 +1,20 @@
 import express from 'express';
 import { configureRouter } from './api/router.js';
+import config from './config.js';
+import mongoose from 'mongoose';
+import './dependencies.js';
 
-const app = express();
-const PORT = 3000;
+try {
+  const app = express();
 
-configureRouter(app);
+  configureRouter(app);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+  await mongoose.connect(config.dbConnectionString);
+  console.log('Connected to MongoDB');
+
+  app.listen(config.port, () => {
+    console.log(`Server is running on http://localhost:${config.port}`);
+  });
+} catch (error) {
+  console.error('Error starting the server:', error);
+}

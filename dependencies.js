@@ -1,6 +1,7 @@
-import { addDependency } from './dependencies.js';
-import { UserService } from './services/userService.js';
-import { UserMockup } from './mockups/userMockup.js';
+import { addDependency } from './dependency.js';
+import { UserService } from './services/user_service.js';
+import users_mongo from './mongo_db/users_mongo.js';
+
+addDependency('userRepo', users_mongo);
 
 addDependency('userService', new UserService());
-addDependency('userRepo', new UserMockup());
