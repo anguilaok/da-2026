@@ -7,7 +7,9 @@ import './dependencies.js';
 try {
   const app = express();
 
-  configureRouter(app);
+  const apiRouter = express.Router();
+  app.use('/api', apiRouter);
+  configureRouter(apiRouter);
 
   await mongoose.connect(config.dbConnectionString);
   console.log('Connected to MongoDB');
